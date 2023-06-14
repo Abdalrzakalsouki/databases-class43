@@ -14,26 +14,70 @@ const fields = [
 
 const values = [
   [
-    " '1', 'crazyPerson', 'crazyCompany' ",
-    " '2', 'anotherCrazyPerson', 'sameCrazyCompany' ",
-    " '3' , 'yetAnotherCrazyPerson', 'exactCrazyCompany' ",
-    " '4', 'plusCrazyPerson', 'theSameCompany'",
-    " '5', 'finalCrazyPerson', 'thatCrazyCompany' ",
+    ["1", "crazyPerson", "crazyCompany"],
+    ["2", "anotherCrazyPerson", "sameCrazyCompany"],
+    ["3", "yetAnotherCrazyPerson", "exactCrazyCompany"],
+    ["4", "plusCrazyPerson", "theSameCompany"],
+    ["5", "finalCrazyPerson", "thatCrazyCompany"],
   ],
   [
-    " '1', 'crazyRoom', '2' ",
-    " '2', 'sameCrazyRoom', '3' ",
-    " '3', 'biggerCrazyRoom', '4' ",
-    " '4', 'anotherCrazyRoom', '5' ",
-    " '5', 'darkCrazyRoom', '6' ",
+    ["1", "crazyRoom", "2"],
+    ["2", "sameCrazyRoom", "3"],
+    ["3", "biggerCrazyRoom", "4"],
+    ["4", "anotherCrazyRoom", "5"],
+    ["5", "darkCrazyRoom", "6"],
   ],
   [
-    " '1', 'crazyFastMeeting', '10:5:2', '10:5:3' ",
-    " '2', 'AnotherCrazyFastMeeting', '10:5:2', '10:5:3' ",
-    " '3', 'AnotherCrazyFastMeeting', '10:5:2', '10:5:3' ",
-    " '4', 'AnotherCrazyFastMeeting', '10:5:2', '10:5:3' ",
-    " '5', 'AnotherCrazyFastMeeting', '10:5:2', '10:5:3'",
+    ["1", "crazyFastMeeting", "10:5:2", "10:5:3"],
+    ["2", "AnotherCrazyFastMeeting", "10:5:2", "10:5:3"],
+    ["3", "AnotherCrazyFastMeeting", "10:5:2", "10:5:3"],
+    ["4", "AnotherCrazyFastMeeting", "10:5:2", "10:5:3"],
+    ["5", "AnotherCrazyFastMeeting", "10:5:2", "10:5:3"],
   ],
 ];
 
-module.exports = { tables, fields, fieldsTypes, values };
+const queries = [
+  {
+    query: "SELECT Name FROM country WHERE Population > ?",
+    params: [8000000],
+  },
+  {
+    query: "SELECT Name FROM country WHERE Name LIKE ?",
+    params: ["%land%"],
+  },
+  {
+    //Need to modify the params
+    query: "Select Name from city WHERE Population BETWEEN ? AND 1000000",
+    params: [500000],
+  },
+  {
+    query: "SELECT Name FROM country WHERE Continent= ?",
+    params: ["Europe"],
+  },
+  {
+    query: "SELECT * FROM country ORDER BY ? DESC",
+    params: ["SurfaceArea"],
+  },
+  {
+    query: "SELECT * FROM city WHERE CountryCode= ?",
+    params: ["NLD"],
+  },
+  {
+    query: "SELECT Population FROM city WHERE Name= ?",
+    params: ["Rotterdam"],
+  },
+  {
+    query: "SELECT * FROM country ORDER BY ? DESC LIMIT 10",
+    params: ["SurfaceArea"],
+  },
+  {
+    query: "SELECT * FROM city ORDER BY ? DESC LIMIT 10",
+    params: ["Population"],
+  },
+  {
+    query: "SELECT SUM(?) FROM country",
+    params: ["Population"],
+  },
+];
+
+module.exports = { tables, fields, fieldsTypes, values, queries };
