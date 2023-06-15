@@ -47,8 +47,8 @@ const queries = [
   },
   {
     //Need to modify the params
-    query: "Select Name from city WHERE Population BETWEEN ? AND 1000000",
-    params: [500000],
+    query: "Select Name from city WHERE Population BETWEEN ? AND ?",
+    params: [500000, 1000000],
   },
   {
     query: "SELECT Name FROM country WHERE Continent= ?",
