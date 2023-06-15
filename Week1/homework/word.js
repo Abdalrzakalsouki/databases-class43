@@ -19,7 +19,7 @@ connection.changeUser({ database: process.env.DATABASE_2 }, (error) => {
 });
 
 const queryExecution = (query, params, queryType) => {
-  connection.query(query, [params], (error, result) => {
+  connection.query(query, params, (error, result) => {
     if (error) {
       console.error(`Error at ${queryType}`);
       throw error;
