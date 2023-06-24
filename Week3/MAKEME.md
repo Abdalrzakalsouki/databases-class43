@@ -49,8 +49,15 @@ Please help the manger by using the knowledge of database normal forms.
 Save all answers in a text file / MD file.
 
 1. What columns violate 1NF?
+
+- Dublicated records (member_id, dinner_id) which leads to dublication on all the subsets
+- Colum domain should not change (dinner_date)
+- Values must be single (food_code)
+
 2. What entities do you recognize that could be extracted?
+   (dinner_date, venu_descriotion, food_description)
 3. Name all the tables and columns that would make a 3NF compliant solution.
+   (Member table, dinner table, venu table, food table)
 
 ```
 +-----------+---------------+----------------+-----------+-------------+------------+-------------------+-----------+------------------+
@@ -102,7 +109,26 @@ function getPopulation(Country, name, code, cb) {
 
 1. Give an example of a value that can be passed as `name` and `code` that would take advantage of SQL-injection and (
    fetch all the records in the database)
+   `name`: "Netherands OR a=a "
+   `code`: +31 OR 1=1
 2. Rewrite the function so that it is no longer vulnerable to SQL injection
+
+```js
+function getPopulation(Country, name, code, cb) {
+  // assuming that connection to the database is established and stored as conn
+  const countryName = "Netherlands";
+  const countryCode = +31;
+  conn.query(
+    `SELECT Population FROM ${Country} WHERE Name = ? and code = ?`,
+     [countryName, countryCode]
+    function (err, result) {
+      if (err) cb(err);
+      if (result.length == 0) cb(new Error("Not found"));
+      cb(null, result[0].name);
+    }
+  );
+}
+```
 
 ### 3.4. Exercise 4 : MongoDB CRUD
 
