@@ -1,34 +1,33 @@
 const queries = [
   {
     query:
-      "SELECT research_Papers.*, COUNT(?) FROM research_Papers INNER JOIN authors ON authors.author_id = research_Papers.paper_id GROUP BY research_Papers.paper_id ORDER BY COUNT(authors.author_name) DESC",
+      "SELECT paper_title, COUNT(?) as authors_count FROM research_papers JOIN author_resarch ON research_papers.paper_id = author_resarch.paper_id JOIN authors ON author_resarch.author_id = authors.author_id GROUP BY research_papers.paper_id",
     params: ["authors.author_name"],
   },
   {
     query:
-      "SELECT COUNT(?) AS Totall_papers FROM research_Papers JOIN authors ON authors.author_id = research_Papers.paper_id WHERE authors.gender = ?",
+      "SELECT research_papers.paper_title, COUNT(?) as paper_count FROM research_papers JOIN author_resarch ON research_papers.paper_id = author_resarch.paper_id JOIN authors ON author_resarch.author_id = authors.author_id WHERE authors.gender = ? GROUP BY research_papers.paper_id",
     params: ["research_Papers.paper_title", "Female"],
   },
   {
     query:
-      "SELECT AVG(?) AS H_AVG, university FROM authors GROUP BY university",
+      "SELECT AVG(?) as avrage_hIndex, authors.university FROM authors GROUP BY authors.university",
     params: ["authors.h_index"],
   },
   {
     query:
-      "SELECT COUNT(?) AS Papers_AVG FROM research_Papers JOIN authors ON authors.author_id = research_Papers.paper_id GROUP BY ?",
+      "SELECT authors.university, COUNT(?) as sum_papers FROM authors JOIN author_resarch ON author_resarch.author_id = authors.author_id JOIN research_papers ON author_resarch.paper_id = research_papers.paper_id GROUP BY ?",
     params: ["research_Papers.paper_title", "university"],
   },
   {
-    query:
-      "SELECT MIN(?) AS H_MIN, MAX(?) AS H_MIN, university FROM authors GROUP BY university",
+    query: "SELECT MIN(?) as min_hIndex, MAX(?) as max_hIndex FROM authors",
     params: ["authors.h_index", "authors.h_index"],
   },
 ];
 
 const queries2 = [
-  "SELECT author_name, mentor FROM authors",
-  "SELECT authors.*, research_Papers.paper_title FROM authors LEFT JOIN research_Papers ON authors.author_id = research_Papers.paper_id",
+  "SELECT a1.author_name, a2.author_name as mentor_name FROM authors a1 LEFT JOIN authors a2 ON a1.mentor = a2.author_id",
+  "SELECT authors.*, research_papers.paper_title FROM authors JOIN author_resarch ON authors.author_id = author_resarch.author_id LEFT JOIN research_Papers ON author_resarch.paper_id = research_Papers.paper_id",
 ];
 
 module.exports = { queries, queries2 };

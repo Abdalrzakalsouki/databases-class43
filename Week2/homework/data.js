@@ -24,12 +24,12 @@ const junctionFields = ["author_id, paper_id"];
 
 const authorsData = [
   [
-    ["Germ Daniels", "University of the South", "1952-12-02", 23, "Male", 1],
-    ["Wilhelmus Kaijser", "Carleton College", "1955-05-06", 12, "Male", 2],
-    ["Gwen Zwiep", "University of Texas, Austin", "2018-07-07", 24, "Male", 3],
-    ["Hodan Berkelaar", "University of Georgia", "1994-05-16", 124, "Male", 4],
-    ["Janey Hellemons", "Pomona College", "2017-12-11", 1224, "Male", 5],
-    ["Janey Hellemons", "Macalester College", "1959-03-16", 535, "Male", 6],
+    ["Germ Daniels", "University of the South", "1952-12-02", 23, "Male", 2],
+    ["Wilhelmus Kaijser", "Carleton College", "1955-05-06", 12, "Male", 1],
+    ["Gwen Zwiep", "University of Texas, Austin", "2018-07-07", 24, "Male", 4],
+    ["Hodan Berkelaar", "University of Georgia", "1994-05-16", 124, "Male", 3],
+    ["Janey Hellemons", "Pomona College", "2017-12-11", 1224, "Male", 6],
+    ["Janey Hellemons", "Macalester College", "1959-03-16", 535, "Male", 5],
     ["Jaafar Winters", "University of Richmond", "1974-04-02", 635, "Male", 7],
     [
       "Jalisa Rath",
@@ -153,49 +153,6 @@ authorPaperAssociations = [
   [15, 29],
   [15, 30],
   [15, 17],
-];
-
-const queries = [
-  {
-    query: "SELECT Name FROM country WHERE Population > ?",
-    params: [8000000],
-  },
-  {
-    query: "SELECT Name FROM country WHERE Name LIKE ?",
-    params: ["%land%"],
-  },
-  {
-    query: "Select Name from city WHERE Population BETWEEN ? AND ?",
-    params: [500000, 1000000],
-  },
-  {
-    query: "SELECT Name FROM country WHERE Continent= ?",
-    params: ["Europe"],
-  },
-  {
-    query: "SELECT * FROM country ORDER BY ? DESC",
-    params: ["SurfaceArea"],
-  },
-  {
-    query: "SELECT * FROM city WHERE CountryCode= ?",
-    params: ["NLD"],
-  },
-  {
-    query: "SELECT Population FROM city WHERE Name= ?",
-    params: ["Rotterdam"],
-  },
-  {
-    query: "SELECT * FROM country ORDER BY ? DESC LIMIT 10",
-    params: ["SurfaceArea"],
-  },
-  {
-    query: "SELECT * FROM city ORDER BY ? DESC LIMIT 10",
-    params: ["Population"],
-  },
-  {
-    query: "SELECT SUM(?) FROM country",
-    params: ["Population"],
-  },
 ];
 
 module.exports = {
