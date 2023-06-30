@@ -6,7 +6,7 @@ const queries = [
   },
   {
     query:
-      "SELECT research_papers.paper_title, COUNT(?) as paper_count FROM research_papers JOIN author_resarch ON research_papers.paper_id = author_resarch.paper_id JOIN authors ON author_resarch.author_id = authors.author_id WHERE authors.gender = ? GROUP BY research_papers.paper_id",
+      "SELECT COUNT(?) as paper_count FROM research_papers JOIN author_resarch ON research_papers.paper_id = author_resarch.paper_id  JOIN authors ON author_resarch.author_id = authors.author_id  WHERE authors.gender = ?",
     params: ["research_Papers.paper_title", "Female"],
   },
   {
@@ -20,7 +20,8 @@ const queries = [
     params: ["research_Papers.paper_title", "university"],
   },
   {
-    query: "SELECT MIN(?) as min_hIndex, MAX(?) as max_hIndex FROM authors",
+    query:
+      "SELECT MIN(?) as min_hIndex, MAX(?) as max_hIndex, authors.university FROM authors GROUP BY university",
     params: ["authors.h_index", "authors.h_index"],
   },
 ];
