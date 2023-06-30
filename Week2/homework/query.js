@@ -6,7 +6,7 @@ const queries = [
   },
   {
     query:
-      "SELECT COUNT(?) as paper_count FROM research_papers JOIN author_resarch ON research_papers.paper_id = author_resarch.paper_id  JOIN authors ON author_resarch.author_id = authors.author_id  WHERE authors.gender = ?",
+      "SELECT COUNT(DISTINCT ?) as paper_count FROM research_papers JOIN author_resarch ON research_papers.paper_id = author_resarch.paper_id  JOIN authors ON author_resarch.author_id = authors.author_id  WHERE authors.gender = ?",
     params: ["research_Papers.paper_title", "Female"],
   },
   {
