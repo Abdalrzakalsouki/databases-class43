@@ -50,7 +50,6 @@ Save all answers in a text file / MD file.
 
 1. What columns violate 1NF?
 
-- Dublicated records (member_id, dinner_id) which leads to dublication on all the subsets
 - Colum domain should not change (dinner_date)
 - Values must be single (food_code)
 

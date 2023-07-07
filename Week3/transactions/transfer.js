@@ -30,11 +30,11 @@ const transfer = async (accountFrom, accountTo, amount) => {
     );
     const changed_date = new Date().toISOString().slice(0, 10);
     const remark = `Transferd ${amount} From ${accountFrom} account`;
-    const updateAccountChanges =
-      "UPDATE account_changes SET amount = ?, changed_date = ?, remark = ? , change_number = ? WHERE account_number = (SELECT account_number FROM account WHERE account_number = ?)";
+    const insertAccountChanges =
+      "INSERT INTO account_changes (amount , changed_date , remark , change_number, account_number) VALUES (?)";
     connection.query(
-      updateAccountChanges,
-      [amount, changed_date, remark, accountTo, accountFrom],
+      insertAccountChanges,
+      [[amount, changed_date, remark, accountTo, accountFrom]],
       (err, result) => {
         if (err) throw err;
         if (result.length === 0)
