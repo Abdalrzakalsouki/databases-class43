@@ -6,8 +6,9 @@
 
 const MongoClient = require("mongodb").MongoClient;
 
-const firstAggreation = async (collection) => {
+const firstAggreation = async (collection, country) => {
   const pipline = [
+    { $match: { Country: country } },
     {
       $group: {
         countPopulation: {
@@ -25,7 +26,7 @@ const firstAggreation = async (collection) => {
   return result;
 };
 
-const secondAggreation = async (collection, age) => {
+const secondAggreation = async (collection, age, year) => {
   const pipline = [
     {
       $match: {
@@ -33,13 +34,14 @@ const secondAggreation = async (collection, age) => {
           $in: [
             "AFRICA",
             "EUROPE",
-            "NORTH AMERICA",
-            "EUROPE",
-            "SOUTH AMERICA",
+            "ASIA",
+            "NORTHERN AMERICA",
+            "South America",
             "OCEANIA",
           ],
         },
         Age: age,
+        Year: year,
       },
     },
     {
@@ -66,8 +68,8 @@ const performAggreation = async (databaseName, collectionName) => {
     console.log("Connection Established");
     const db = await client.db(databaseName);
     const cl = await db.collection(collectionName);
-    const res1 = await firstAggreation(cl);
-    const res2 = await secondAggreation(cl, "100+");
+    const res1 = await firstAggreation(cl, "Netherlands");
+    const res2 = await secondAggreation(cl, "100+", 2020);
     client.close();
   } catch (err) {
     throw err;

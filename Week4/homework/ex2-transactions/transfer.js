@@ -12,15 +12,18 @@ const transfer = async (cl, connection, accountNum, accountToNum, amount) => {
     if (fromAccount === null)
       throw new Error("There is no enough balance to perform the opreation");
     const changed_date = new Date().toISOString().slice(0, 10);
+    let counter1 = 1;
+    const newFiled1 = {
+      change_number: counter1,
+      amount: amount,
+      changed_date: changed_date,
+      remark: `Money had been transferred to ${accountToNum}`,
+    };
     const fromAccountUpdates = await cl.updateOne(
       { _id: fromAccount._id },
       {
-        $inc: { balance: -amount, "account_changes.0.change_number": +1 },
-        $set: {
-          "account_changes.0.amount": amount,
-          "account_changes.0.changed_date": changed_date,
-          "account_changes.0.remark": `Money had been transferred to ${accountToNum}`,
-        },
+        $push: { account_changes: newFiled1 },
+        $inc: { balance: -amount },
       }
     );
     if (fromAccountUpdates === null) {
@@ -28,16 +31,18 @@ const transfer = async (cl, connection, accountNum, accountToNum, amount) => {
     }
     const toAccount = await cl.findOne({ account_number: accountToNum });
     if (toAccount === null) throw new Error("Recive account does not exsist");
-
+    let counter2 = 1;
+    const newFiled2 = {
+      change_number: counter2,
+      amount: amount,
+      changed_date: changed_date,
+      remark: `Money had been recived from ${accountNum}`,
+    };
     const toAccountUpdates = await cl.updateOne(
       { _id: toAccount._id },
       {
-        $inc: { balance: +amount, "account_changes.0.change_number": +1 },
-        $set: {
-          "account_changes.0.amount": amount,
-          "account_changes.0.changed_date": changed_date,
-          "account_changes.0.remark": `Money had been recived from ${accountNum}`,
-        },
+        $push: { account_changes: newFiled2 },
+        $inc: { balance: +amount },
       }
     );
     if (toAccountUpdates === null)
